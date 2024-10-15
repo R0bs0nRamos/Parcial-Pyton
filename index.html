@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="locality" content="Buenos Aires">
+    <meta name="region" content="CABA">
+    <meta name="country-name" content="Argentina">
+    <link rel="icon" href="https://github.com/R0bs0nRamos/Grupo11/blob/main/Grupo11_index.html/img.grupo11/python.jpg?raw=true">
+    <title>Años Bisiestos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html">
+                <img src="https://github.com/R0bs0nRamos/Grupo11/blob/main/Grupo11_index.html/img.grupo11/python.jpg?raw=true" alt="Logo" class="python">
+            </a>
+        </nav>
+       
+        <h1>Explicación del Código: Programa para Contar Años Bisiestos</h1>
+        <p>Este programa solicita dos años al usuario y calcula cuántos años bisiestos hay en ese intervalo.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Visión General del Programa</h2>
+            <p>El programa está diseñado para:</p>
+            <ol>
+                <li><strong>Solicitar</strong> al usuario que ingrese dos años.</li>
+                <li><strong>Validar</strong> las entradas para asegurarse de que sean números enteros y que el primer año no sea mayor que el segundo.</li>
+                <li><strong>Calcular</strong> cuántos años bisiestos existen entre los dos años (inclusive).</li>
+                <li><strong>Mostrar</strong> la cantidad y la lista de los años bisiestos encontrados.</li>
+                <li><strong>Ofrecer</strong> al usuario la opción de realizar otra consulta o finalizar el programa.</li>
+            </ol>
+            <p>Ahora, vamos a detallar cada parte del código.</p>
+        </section>
+
+        <section>
+            <h2>1. Función <code>es_bisiesto(anio)</code></h2>
+            <pre><code>def es_bisiesto(anio):
+    """Determina si un año es bisiesto."""
+    return (anio % 4 == 0) and (anio % 100 != 0 or anio % 400 == 0)
+            </code></pre>
+            <p><strong>Propósito:</strong> Esta función verifica si un año determinado es bisiesto.</p>
+            <p><strong>Cómo Funciona:</strong></p>
+            <ul>
+                <li><strong>Condición Principal:</strong> Un año es bisiesto si es divisible por 4 <em>y</em> (no es divisible por 100 <em>o</em> es divisible por 400).</li>
+                <li><strong>Expresión Booleana:</strong>
+                    <ul>
+                        <li><code>anio % 4 == 0</code>: Verifica si el año es divisible por 4.</li>
+                        <li><code>anio % 100 != 0</code>: Verifica si el año <em>no</em> es divisible por 100.</li>
+                        <li><code>anio % 400 == 0</code>: Verifica si el año es divisible por 400.</li>
+                    </ul>
+                </li>
+                <li><strong>Retorno:</strong> La función devuelve <code>True</code> si el año es bisiesto y <code>False</code> en caso contrario.</li>
+            </ul>
+            <p><strong>Ejemplos:</strong></p>
+            <ul>
+                <li><strong>2000:</strong>
+                    <ul>
+                        <li>Divisible por 4? Sí.</li>
+                        <li>Divisible por 100? Sí.</li>
+                        <li>Divisible por 400? Sí.</li>
+                        <li><strong>Resultado:</strong> Bisiesto.</li>
+                    </ul>
+                </li>
+                <li><strong>1900:</strong>
+                    <ul>
+                        <li>Divisible por 4? Sí.</li>
+                        <li>Divisible por 100? Sí.</li>
+                        <li>Divisible por 400? No.</li>
+                        <li><strong>Resultado:</strong> No es bisiesto.</li>
+                    </ul>
+                </li>
+                <li><strong>2016:</strong>
+                    <ul>
+                        <li>Divisible por 4? Sí.</li>
+                        <li>Divisible por 100? No.</li>
+                        <li><strong>Resultado:</strong> Bisiesto.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Función <code>obtener_años_bisiestos(inicio, fin)</code></h2>
+            <pre><code>def obtener_años_bisiestos(inicio, fin):
+    """Retorna una lista de años bisiestos entre inicio y fin (inclusive)."""
+    return [anio for anio in range(inicio, fin + 1) if es_bisiesto(anio)]
+            </code></pre>
+            <p><strong>Propósito:</strong> Esta función genera una lista de todos los años bisiestos entre dos años proporcionados (incluyendo los años de inicio y fin).</p>
+            <p><strong>Cómo Funciona:</strong></p>
+            <ul>
+                <li><strong>Comprensión de Lista:</strong>
+                    <ul>
+                        <li><code>range(inicio, fin + 1)</code>: Crea una secuencia de años desde <code>inicio</code> hasta <code>fin</code>, incluyendo <code>fin</code> (por eso el <code>+1</code>).</li>
+                        <li><code>for anio in range(...)</code>: Itera sobre cada año en la secuencia.</li>
+                        <li><code>if es_bisiesto(anio)</code>: Verifica si el año actual es bisiesto utilizando la función <code>es_bisiesto</code>.</li>
+                        <li>Si la condición es verdadera, el año se incluye en la lista resultante.</li>
+                    </ul>
+                </li>
+                <li><strong>Retorno:</strong> La función devuelve una lista que contiene todos los años bisiestos en el intervalo especificado.</li>
+            </ul>
+            <p><strong>Ejemplo:</strong> Para <code>inicio = 2000</code> y <code>fin = 2020</code>, la lista retornada sería <code>[2000, 2004, 2008, 2012, 2016, 2020]</code>.</p>
+        </section>
+
+        <section>
+            <h2>3. Función <code>solicitar_años()</code></h2>
+            <pre><code>def solicitar_años():
+    """Solicita al usuario ingresar dos años y los valida."""
+    while True:
+        try:
+            anio1 = int(input("Ingrese el primer año: "))
+            anio2 = int(input("Ingrese el segundo año: "))
+            if anio1 > anio2:
+                print("Error: El primer año debe ser menor o igual al segundo año. Inténtelo de nuevo.")
+                continue
+            return anio1, anio2
+        except ValueError:
+            print("Error: Por favor, ingrese un número válido para los años.")
+            </code></pre>
+            <p><strong>Propósito:</strong> Solicita al usuario ingresar dos años y valida que las entradas sean correctas.</p>
+            <p><strong>Cómo Funciona:</strong></p>
+            <ul>
+                <li><strong>Bucle Infinito (<code>while True</code>):</strong> Permite que el usuario intente ingresar los años nuevamente en caso de error.</li>
+                <li><strong>Bloque <code>try</code>:</strong>
+                    <ul>
+                        <li>Intenta convertir las entradas del usuario a enteros utilizando <code>int(input(...))</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Validación de las Entradas:</strong>
+                    <ul>
+                        <li>Verifica si <code>anio1</code> (primer año) es menor o igual a <code>anio2</code> (segundo año).</li>
+                        <li>Si <code>anio1 > anio2</code>, muestra un mensaje de error y continúa el bucle para solicitar nuevamente.</li>
+                    </ul>
+                </li>
+                <li><strong>Bloque <code>except</code>:</strong>
+                    <ul>
+                        <li>Captura excepciones del tipo <code>ValueError</code>, que ocurren si el usuario ingresa algo que no puede convertirse a entero (por ejemplo, letras o símbolos).</li>
+                        <li>Muestra un mensaje de error y continúa el bucle.</li>
+                    </ul>
+                </li>
+                <li><strong>Retorno:</strong> Cuando las entradas son válidas y <code>anio1 <= anio2</code>, retorna una tupla <code>(anio1, anio2)</code>.</li>
+            </ul>
+            <p><strong>Importancia de la Validación:</strong></p>
+            <ul>
+                <li><strong>Prevención de Errores:</strong> Asegura que el programa no falle debido a entradas inválidas.</li>
+                <li><strong>Experiencia del Usuario:</strong> Proporciona retroalimentación clara sobre lo que está mal y cómo corregirlo.</li>
+                <li><strong>Integridad de los Datos:</strong> Garantiza que las operaciones subsiguientes (como el cálculo de años bisiestos) se realicen con datos correctos.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Función <code>realizar_consulta()</code></h2>
+            <pre><code>def realizar_consulta():
+    """Realiza una consulta de años bisiestos según la entrada del usuario."""
+    anio_inicio, anio_fin = solicitar_años()
+    bisiestos = obtener_años_bisiestos(anio_inicio, anio_fin)
+    cantidad = len(bisiestos)
+    
+    print(f"\nEntre los años {anio_inicio} y {anio_fin} hay {cantidad} año(s) bisiesto(s).")
+    if cantidad > 0:
+        print("Años bisiestos encontrados:")
+        print(", ".join(map(str, bisiestos)))
+    print()
+            </code></pre>
+            <p><strong>Propósito:</strong> Coordina el proceso de una única consulta para encontrar años bisiestos entre dos años proporcionados por el usuario.</p>
+            <p><strong>Cómo Funciona:</strong></p>
+            <ol>
+                <li><strong>Obtención de las Entradas Validadas:</strong>
+                    <ul>
+                        <li>Llama a <code>solicitar_años()</code> para recibir los dos años.</li>
+                    </ul>
+                </li>
+                <li><strong>Cálculo de los Años Bisiestos:</strong>
+                    <ul>
+                        <li>Utiliza <code>obtener_años_bisiestos(anio_inicio, anio_fin)</code> para obtener la lista de años bisiestos en el intervalo.</li>
+                    </ul>
+                </li>
+                <li><strong>Conteo de los Años Bisiestos:</strong>
+                    <ul>
+                        <li><code>len(bisiestos)</code>: Calcula cuántos años bisiestos se encontraron.</li>
+                    </ul>
+                </li>
+                <li><strong>Exhibición de los Resultados:</strong>
+                    <ul>
+                        <li>Imprime un mensaje informando la cantidad de años bisiestos en el intervalo.</li>
+                        <li>Si hay años bisiestos (<code>cantidad &gt; 0</code>), lista esos años, separados por comas.</li>
+                        <li>El uso de <code>", ".join(map(str, bisiestos))</code> convierte cada número de la lista a cadena y los une con comas.</li>
+                    </ul>
+                </li>
+            </ol>
+            <p><strong>Ejemplo de Salida:</strong></p>
+            <pre><code>Entre los años 2000 y 2020 hay 6 año(s) bisiesto(s).
+Años bisiestos encontrados:
+2000, 2004, 2008, 2012, 2016, 2020
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>5. Función <code>main()</code></h2>
+            <pre><code>def main():
+    """Función principal del programa."""
+    print("Bienvenido al contador de años bisiestos.")
+    while True:
+        realizar_consulta()
+        while True:
+            respuesta = input("¿Desea realizar otra consulta? (s/n): ").strip().lower()
+            if respuesta == 's':
+                print()
+                break
+            elif respuesta == 'n':
+                print("\nGracias por usar el programa. ¡Hasta luego!")
+                return
+            else:
+                print("Respuesta inválida. Por favor, ingrese 's' para sí o 'n' para no.")
+            </code></pre>
+            <p><strong>Propósito:</strong> Controla el flujo principal del programa, permitiendo que el usuario realice múltiples consultas o finalice el programa según lo desee.</p>
+            <p><strong>Cómo Funciona:</strong></p>
+            <ol>
+                <li><strong>Mensaje de Bienvenida:</strong>
+                    <ul>
+                        <li>Imprime "Bienvenido al contador de años bisiestos."</li>
+                    </ul>
+                </li>
+                <li><strong>Bucle Principal (<code>while True</code>):</strong>
+                    <ul>
+                        <li>Permite que el usuario realice varias consultas sucesivamente.</li>
+                    </ul>
+                </li>
+                <li><strong>Llamada a <code>realizar_consulta()</code>:</strong>
+                    <ul>
+                        <li>Ejecuta una consulta completa de años bisiestos.</li>
+                    </ul>
+                </li>
+                <li><strong>Bucle Interno para Preguntar si Desea Continuar:</strong>
+                    <ul>
+                        <li>Después de cada consulta, pregunta al usuario si desea realizar otra (<code>"¿Desea realizar otra consulta? (s/n): "</code>).</li>
+                        <li><strong>Entrada del Usuario:</strong>
+                            <ul>
+                                <li><code>.strip().lower()</code>: Elimina espacios en blanco y convierte la respuesta a minúsculas para facilitar la comparación.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Condiciones:</strong>
+                            <ul>
+                                <li>Si la respuesta es <code>'s'</code> (sí):
+                                    <ul>
+                                        <li>Imprime una línea en blanco para separar las consultas.</li>
+                                        <li>Usa <code>break</code> para salir del bucle interno y comenzar una nueva consulta.</li>
+                                    </ul>
+                                </li>
+                                <li>Si la respuesta es <code>'n'</code> (no):
+                                    <ul>
+                                        <li>Imprime un mensaje de despedida y usa <code>return</code> para finalizar la función <code>main()</code>, terminando el programa.</li>
+                                    </ul>
+                                </li>
+                                <li>De lo contrario:
+                                    <ul>
+                                        <li>Informa que la respuesta es inválida y solicita nuevamente.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+            <p><strong>Importancia de la Estructura:</strong></p>
+            <ul>
+                <li><strong>Flujo Controlado:</strong> Asegura que el usuario pueda realizar múltiples consultas sin reiniciar el programa.</li>
+                <li><strong>Validación de Respuesta:</strong> Evita comportamientos inesperados al manejar entradas inválidas.</li>
+                <li><strong>Experiencia del Usuario:</strong> Proporciona una interacción amigable y clara.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Bloque de Ejecución</h2>
+            <pre><code>if __name__ == "__main__":
+    main()
+            </code></pre>
+            <p><strong>Propósito:</strong> Determina si el script está siendo ejecutado directamente o importado como módulo en otro script.</p>
+            <p><strong>Cómo Funciona:</strong></p>
+            <ul>
+                <li><strong><code>__name__</code>:</strong>
+                    <ul>
+                        <li>En Python, cuando un script se ejecuta directamente, la variable especial <code>__name__</code> se define como <code>"__main__"</code>.</li>
+                        <li>Si el script se importa como módulo en otro script, <code>__name__</code> será el nombre del módulo.</li>
+                    </ul>
+                </li>
+                <li><strong>Condición:</strong> <code>if __name__ == "__main__":</code> verifica si el script está siendo ejecutado directamente.</li>
+                <li><strong>Acción:</strong>
+                    <ul>
+                        <li>Si es verdadero, llama a la función <code>main()</code> para iniciar el programa.</li>
+                        <li>Esto permite que el código sea reutilizado como módulo sin ejecutar el programa principal automáticamente.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><strong>Importancia:</strong></p>
+            <ul>
+                <li><strong>Reutilización de Código:</strong> Permite que las funciones del script sean usadas en otros scripts sin ejecutar el programa completo.</li>
+                <li><strong>Organización:</strong> Mantiene la lógica de ejecución separada de la definición de funciones.</li>
+            </ul>
+        </section>
+
+        
+        <section>
+            <h2>Conclusión</h2>
+            <p>Comprender cada parte del código y el porqué de su existencia es fundamental en Python!</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Copyright © 2024 Robson. Todos los derechos reservados Robson Ramos.</p>
+    </footer>
+</body>
+</html>
